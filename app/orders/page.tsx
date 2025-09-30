@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import OrderList from '../../components/OrderList';
+import Navbar from '../../components/Navbar';
 import { supabase } from '../../lib/supabaseClient';
 
 export default function OrdersPage() {
@@ -28,8 +29,11 @@ export default function OrdersPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white">
       <OrderList userId={userId} />
     </main>
+    </>
   );
 }

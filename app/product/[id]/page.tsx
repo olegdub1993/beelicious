@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '../../../lib/supabaseClient';
+import Navbar from '../../../components/Navbar';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -45,7 +46,9 @@ export default function ProductDetail() {
   if (error || !product) return <div className="mt-10 text-center text-red-500">{error || 'Product not found.'}</div>;
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center pt-10">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white flex flex-col items-center pt-10">
       <div className="max-w-xl w-full p-6 bg-white rounded shadow">
         {product.image_url && (
           <img src={product.image_url} alt={product.name} className="w-full h-64 object-cover mb-4 rounded" />
@@ -72,6 +75,7 @@ export default function ProductDetail() {
         </div>
         {cartMsg && <p className="text-green-600 text-sm">{cartMsg}</p>}
       </div>
-    </main>
+      </main>
+  </>
   );
 }

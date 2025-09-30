@@ -20,21 +20,21 @@ export default function CartList() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10">
-      <h2 className="text-xl font-bold mb-4">Your Cart</h2>
+  <div className="max-w-2xl mx-auto mt-10 p-6 bg-[#FFFDF6] rounded-2xl shadow-lg border border-yellow-100">
+  <h2 className="text-2xl font-extrabold mb-6 text-yellow-700 text-center">Your Cart</h2>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <ul className="space-y-4">
+  <ul className="space-y-4">
           {cart.map(item => (
-            <li key={item.id} className="border p-4 rounded flex justify-between items-center">
+            <li key={item.id} className="bg-white border border-yellow-100 p-4 rounded-xl flex justify-between items-center shadow">
               <div>
                 <p className="font-bold">{item.name}</p>
                 <p className="text-yellow-700 font-bold">${item.price}</p>
                 <p className="text-xs">Quantity: {item.quantity}</p>
               </div>
               <button
-                className="bg-red-500 text-white px-3 py-1 rounded"
+                className="bg-red-400 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow transition-colors duration-200"
                 onClick={() => handleRemove(item.id)}
               >
                 Remove
@@ -43,7 +43,7 @@ export default function CartList() {
           ))}
         </ul>
       )}
-      <div className="mt-6 text-right font-bold text-lg">
+      <div className="mt-6 text-right font-extrabold text-xl text-yellow-700">
         Total: ${total.toFixed(2)}
       </div>
     </div>

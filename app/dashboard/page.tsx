@@ -2,6 +2,7 @@
 // Seller dashboard page
 import ProductForm from '../../components/ProductForm';
 import SellerProductList from '../../components/SellerProductList';
+import Navbar from '../../components/Navbar';
 
 export default function Dashboard() {
   return (
@@ -10,6 +11,7 @@ export default function Dashboard() {
       <div className="max-w-xl mx-auto mt-8">
         <ProductForm />
       </div>
+      <Navbar />
       <div className="max-w-2xl mx-auto">
         {/* Seller product list and management */}
         <SellerProductList />

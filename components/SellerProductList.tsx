@@ -1,7 +1,9 @@
 // SellerProductList.tsx - List, edit, and delete seller's products
+'use client';
 import { useEffect, useState } from 'react';
 import EditProductModal from './EditProductModal';
 import { supabase } from '../lib/supabaseClient';
+import { log } from 'console';
 
 export default function SellerProductList() {
   const [products, setProducts] = useState<any[]>([]);
@@ -9,22 +11,42 @@ export default function SellerProductList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // TODO: Replace with actual seller_id from auth
-  const seller_id = '';
+  // Get seller_id from Supabase authenticated user
+  const [sellerId, setSellerId] = useState<string>('');
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      console.log('======= data', data);
+      if (data?.user?.id) {
+        setSellerId(data.user.id);
+      }
+    };
+    getUser();
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+      console.log('sellerId', sellerId);
       const { data, error } = await supabase
         .from('products')
         .select('*')
-        .eq('seller_id', seller_id);
-      if (error) setError(error.message);
+        .eq('seller_id', sellerId);
+      if (error) {
+      console.log('error', error);
+
+        setError(error.message);
+      } else {
+      console.log('no error', );
+
+        setError('');
+      }
       setProducts(data || []);
       setLoading(false);
     };
     fetchProducts();
-  }, [seller_id]);
+  }, [sellerId]);
 
   const handleDelete = async (id: string) => {
     await supabase.from('products').delete().eq('id', id);
@@ -32,16 +54,16 @@ export default function SellerProductList() {
   };
 
   return (
-    <div className="mt-8">
-      <h2 className="text-lg font-bold mb-4">Your Products</h2>
+  <div className="mt-8 p-6 bg-[#FFFDF6] rounded-2xl shadow-lg border border-yellow-100">
+  <h2 className="text-2xl font-extrabold mb-6 text-yellow-700 text-center">Your Products</h2>
       {loading ? (
         <p>Loading...</p>
       ) : products.length === 0 ? (
         <p>No products found.</p>
       ) : (
-        <ul className="space-y-4">
+  <ul className="space-y-4">
           {products.map(product => (
-            <li key={product.id} className="border p-4 rounded flex justify-between items-center">
+            <li key={product.id} className="bg-white border border-yellow-100 p-4 rounded-xl flex justify-between items-center shadow">
               <div>
                 <p className="font-bold">{product.name}</p>
                 <p className="text-sm">{product.description}</p>
@@ -50,13 +72,13 @@ export default function SellerProductList() {
               </div>
               <div className="flex gap-2">
                 <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow transition-colors duration-200"
                   onClick={() => setEditingProduct(product)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  className="bg-red-400 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow transition-colors duration-200"
                   onClick={() => handleDelete(product.id)}
                 >
                   Delete
@@ -78,7 +100,7 @@ export default function SellerProductList() {
               const { data, error } = await supabase
                 .from('products')
                 .select('*')
-                .eq('seller_id', seller_id);
+          .eq('seller_id', sellerId);
               if (error) setError(error.message);
               setProducts(data || []);
               setLoading(false);

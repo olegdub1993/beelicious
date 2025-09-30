@@ -38,8 +38,8 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-xl font-bold mb-4">{isLogin ? 'Login' : 'Register'}</h2>
+  <div className="max-w-md mx-auto mt-10 p-8 bg-[#FFFDF6] rounded-2xl shadow-lg border border-yellow-100">
+  <h2 className="text-2xl font-extrabold mb-6 text-yellow-700 text-center">{isLogin ? 'Login' : 'Register'}</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {!isLogin && (
           <input
@@ -47,7 +47,7 @@ export default function AuthForm() {
             placeholder="Name"
             value={name}
             onChange={e => setName(e.target.value)}
-            className="w-full border p-2 rounded"
+      className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
             required
           />
         )}
@@ -56,7 +56,7 @@ export default function AuthForm() {
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          className="w-full border p-2 rounded"
+    className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
           required
         />
         <input
@@ -64,14 +64,14 @@ export default function AuthForm() {
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          className="w-full border p-2 rounded"
+    className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
           required
         />
         {!isLogin && (
           <select
             value={role}
             onChange={e => setRole(e.target.value)}
-            className="w-full border p-2 rounded"
+      className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
           >
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
@@ -79,7 +79,7 @@ export default function AuthForm() {
         )}
         <button
           type="submit"
-          className="w-full bg-yellow-500 text-white py-2 rounded font-bold"
+    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg font-bold shadow transition-colors duration-200"
           disabled={loading}
         >
           {loading ? 'Processing...' : isLogin ? 'Login' : 'Register'}
@@ -87,7 +87,7 @@ export default function AuthForm() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
       <button
-        className="mt-4 text-blue-500 underline"
+  className="mt-4 text-yellow-700 underline text-center block"
         onClick={() => setIsLogin(!isLogin)}
       >
         {isLogin ? 'Need an account? Register' : 'Already have an account? Login'}

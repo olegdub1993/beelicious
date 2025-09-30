@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       <h1 className="text-3xl font-bold text-center mt-10">Honey Marketplace</h1>
-  <AuthForm />
+  {/* AuthForm moved to /auth page */}
   <ProductList />
     </main>
   );

@@ -1,5 +1,6 @@
+'use client';
 // ProductForm.tsx - Seller product CRUD (Add/Edit)
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function ProductForm({ onProductAdded }: { onProductAdded?: () => void }) {
@@ -10,6 +11,17 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [sellerId, setSellerId] = useState<string>('');
+
+  // Get seller_id from Supabase authenticated user
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user?.id) {
+        setSellerId(data.user.id);
+      }
+    })();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,13 +41,18 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
   imageUrl = supabase.storage.from('product-images').getPublicUrl(data.path).data.publicUrl;
     }
     // Insert product
+    if (!sellerId) {
+      setError('No seller ID found. Please log in.');
+      setLoading(false);
+      return;
+    }
     const { error: insertError } = await supabase.from('products').insert({
       name,
       description,
       price: parseFloat(price),
       quantity: parseInt(quantity),
       image_url: imageUrl,
-      // seller_id should be set from the logged-in user
+      seller_id: sellerId,
     });
     if (insertError) setError(insertError.message);
     setLoading(false);

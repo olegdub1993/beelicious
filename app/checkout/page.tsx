@@ -1,6 +1,7 @@
 // Checkout page
 'use client';
 import { useState } from 'react';
+import Navbar from '../../components/Navbar';
 
 export default function Checkout() {
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,9 @@ export default function Checkout() {
   }
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center justify-center">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold mt-10">Checkout</h1>
       <button
         className="bg-yellow-500 text-white py-2 px-6 rounded font-bold mt-8"
