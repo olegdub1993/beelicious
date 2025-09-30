@@ -1,0 +1,3 @@
+- [x] Project initialized with Next.js 13, Tailwind CSS, TypeScript, ESLint, and app router.
+- [ ] Scaffolded minimal pages and folders for marketplace MVP.
+- [ ] Ready for feature implementation: authentication, product CRUD, cart, checkout, Stripe, Supabase integration.
