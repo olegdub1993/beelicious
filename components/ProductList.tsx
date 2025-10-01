@@ -5,8 +5,17 @@ import { supabase } from '../lib/supabaseClient';
 import Link from 'next/link';
 import Image from 'next/image';
 
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  image_url?: string;
+};
+
 export default function ProductList() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -72,6 +81,7 @@ export default function ProductList() {
                     onClick={() => {
                       // Add to cart in localStorage
                       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       const existing = cart.find((item: any) => item.id === product.id);
                       if (existing) {
                         existing.quantity += 1;

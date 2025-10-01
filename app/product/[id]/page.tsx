@@ -7,8 +7,19 @@ import Navbar from '../../../components/Navbar';
 import Image from 'next/image';
 
 export default function ProductDetail() {
-  const { id } = useParams();
-  const [product, setProduct] = useState<any>(null);
+  const params = useParams();
+  const id = params && typeof params.id === 'string' ? params.id : Array.isArray(params?.id) ? params?.id[0] : undefined;
+  type Product = {
+    id: string | number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image_url?: string;
+    // add other product fields if needed
+  };
+
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -29,11 +40,21 @@ export default function ProductDetail() {
     if (id) fetchProduct();
   }, [id]);
 
+  type CartItem = {
+    id: string | number;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image_url?: string;
+    // add other product fields if needed
+  };
+
   const handleAddToCart = () => {
     // Simple localStorage cart for MVP
     if (!product) return;
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existing = cart.find((item: any) => item.id === product.id);
+    const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existing = cart.find((item) => item.id === product.id);
     if (existing) {
       existing.quantity += quantity;
     } else {

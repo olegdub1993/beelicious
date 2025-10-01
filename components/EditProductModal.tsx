@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function EditProductModal({ product, onClose, onProductUpdated }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   product: any,
   onClose: () => void,
   onProductUpdated: () => void

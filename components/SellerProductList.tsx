@@ -5,9 +5,18 @@ import EditProductModal from './EditProductModal';
 import { supabase } from '../lib/supabaseClient';
 import { log } from 'console';
 
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  seller_id: string;
+};
+
 export default function SellerProductList() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [editingProduct, setEditingProduct] = useState<any | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 

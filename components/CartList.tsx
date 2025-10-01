@@ -24,15 +24,24 @@ export default function CartList() {
     );
   setCart(newCart);
   localStorage.setItem('cart', JSON.stringify(newCart));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setTotal(newCart.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0));
   window.dispatchEvent(new Event('cart-updated'));
   };
-  const [cart, setCart] = useState<any[]>([]);
+  type CartItem = {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    image?: string;
+  };
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
     setCart(cartData);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setTotal(cartData.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0));
   }, []);
 
@@ -40,6 +49,7 @@ export default function CartList() {
     const newCart = cart.filter(item => item.id !== id);
   setCart(newCart);
   localStorage.setItem('cart', JSON.stringify(newCart));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setTotal(newCart.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0));
   window.dispatchEvent(new Event('cart-updated'));
   };

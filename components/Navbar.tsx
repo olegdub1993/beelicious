@@ -3,9 +3,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
+import type { User } from '@supabase/supabase-js';
 
 export default function Navbar() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isSeller, setIsSeller] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
@@ -13,6 +14,7 @@ export default function Navbar() {
   useEffect(() => {
     const updateCartCount = () => {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setCartCount(cart.reduce((sum: number, item: any) => sum + item.quantity, 0));
     };
     updateCartCount();
