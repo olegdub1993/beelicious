@@ -1,8 +1,8 @@
 "use client";
-// Navbar component
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null);
@@ -16,21 +16,22 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="w-full bg-yellow-100 py-4 px-6 flex items-center justify-between shadow">
-      <Link href="/" className="text-2xl font-bold text-yellow-700">🍯 Honey Marketplace</Link>
-      <nav>
+    <header className="w-full bg-white py-4 px-8 flex items-center justify-between ">
+      <Link href="/" className="flex items-center gap-2 text-3xl font-bold text-black tracking-tight">
+       <Image src="/bee.jpg" alt="Bee Icon" width={40} height={40} unoptimized/>
+        <span>BeeLicious</span>
+      </Link>
+      <nav className="flex items-center gap-6 font-sans">
+        <Link href="/cart" className="text-black font-semibold hover:text-honey-dark transition-colors">Cart</Link>
+        <Link href="/orders" className="text-black font-semibold hover:text-honey-dark transition-colors">Orders</Link>
+        <Link href="/dashboard" className="text-black font-semibold hover:text-honey-dark transition-colors">Dashboard</Link>
         {!user && (
           <Link href="/auth">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg font-bold shadow transition-colors duration-200">
+            <button className="bg-honey hover:bg-bee text-white px-5 py-2 rounded-xl font-bold shadow-honey transition-colors duration-200 border-2 border-honey-dark">
               Login
             </button>
           </Link>
         )}
-        <div className="flex gap-6">
-          <Link href="/cart" className="text-gray-700 font-medium hover:text-yellow-600 transition-colors">Cart</Link>
-          <Link href="/orders" className="text-gray-700 font-medium hover:text-yellow-600 transition-colors">Orders</Link>
-          <Link href="/dashboard" className="text-gray-700 font-medium hover:text-yellow-600 transition-colors">Seller Dashboard</Link>
-        </div>
       </nav>
     </header>
   );

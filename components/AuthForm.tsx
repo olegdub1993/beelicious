@@ -38,16 +38,19 @@ export default function AuthForm() {
   };
 
   return (
-  <div className="max-w-md mx-auto mt-10 p-8 bg-[#FFFDF6] rounded-2xl shadow-lg border border-yellow-100">
-  <h2 className="text-2xl font-extrabold mb-6 text-yellow-700 text-center">{isLogin ? 'Login' : 'Register'}</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+  <div className="max-w-md mx-auto mt-10 p-10 bg-honey-light rounded-2xl shadow-honey border-2 border-honey-dark">
+  <h2 className="text-3xl font-serif font-extrabold mb-6 text-honey-dark text-center flex items-center justify-center gap-2">
+    <span className="text-4xl">🐝</span>
+    {isLogin ? 'Login' : 'Register'}
+  </h2>
+  <form onSubmit={handleSubmit} className="space-y-6">
         {!isLogin && (
           <input
             type="text"
             placeholder="Name"
             value={name}
             onChange={e => setName(e.target.value)}
-      className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
+            className="w-full border-2 border-honey-dark p-3 rounded-xl font-serif text-lg focus:ring-2 focus:ring-honey"
             required
           />
         )}
@@ -56,7 +59,7 @@ export default function AuthForm() {
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-    className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
+          className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey"
           required
         />
         <input
@@ -64,14 +67,14 @@ export default function AuthForm() {
           placeholder="Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-    className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
+          className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey"
           required
         />
         {!isLogin && (
           <select
             value={role}
             onChange={e => setRole(e.target.value)}
-      className="w-full border border-yellow-200 p-2 rounded-lg focus:ring-2 focus:ring-yellow-400"
+            className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey bg-white"
           >
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
@@ -79,15 +82,15 @@ export default function AuthForm() {
         )}
         <button
           type="submit"
-    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg font-bold shadow transition-colors duration-200"
+          className="w-full bg-honey hover:bg-bee text-brown py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
           disabled={loading}
         >
           {loading ? 'Processing...' : isLogin ? 'Login' : 'Register'}
         </button>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+  {error && <p className="text-red-500 text-base font-bold text-center mt-2">{error}</p>}
       </form>
       <button
-  className="mt-4 text-yellow-700 underline text-center block"
+        className="mt-6 text-honey-dark underline text-center block font-bold text-lg hover:text-bee transition-colors"
         onClick={() => setIsLogin(!isLogin)}
       >
         {isLogin ? 'Need an account? Register' : 'Already have an account? Login'}

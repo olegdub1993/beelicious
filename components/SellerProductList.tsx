@@ -54,31 +54,34 @@ export default function SellerProductList() {
   };
 
   return (
-  <div className="mt-8 p-6 bg-[#FFFDF6] rounded-2xl shadow-lg border border-yellow-100">
-  <h2 className="text-2xl font-extrabold mb-6 text-yellow-700 text-center">Your Products</h2>
+  <div className="mt-8 p-8 bg-honey-light rounded-2xl shadow-honey border-2 border-honey-dark max-w-2xl mx-auto">
+  <h2 className="text-3xl font-serif font-extrabold mb-6 text-honey-dark text-center flex items-center justify-center gap-2">
+    <span className="text-4xl">🍯</span>
+    Your Products
+  </h2>
       {loading ? (
         <p>Loading...</p>
       ) : products.length === 0 ? (
         <p>No products found.</p>
       ) : (
-  <ul className="space-y-4">
+  <ul className="space-y-6">
           {products.map(product => (
-            <li key={product.id} className="bg-white border border-yellow-100 p-4 rounded-xl flex justify-between items-center shadow">
+            <li key={product.id} className="bg-honey-light border-2 border-honey rounded-2xl shadow-honey flex justify-between items-center p-6">
               <div>
-                <p className="font-bold">{product.name}</p>
-                <p className="text-sm">{product.description}</p>
-                <p className="text-yellow-700 font-bold">${product.price}</p>
-                <p className="text-xs">Stock: {product.quantity}</p>
+                <p className="font-serif font-bold text-2xl text-honey-dark mb-1">{product.name}</p>
+                <p className="text-brown text-base mb-2 font-sans">{product.description}</p>
+                <p className="text-honey-dark font-bold text-lg">${product.price}</p>
+                <p className="text-xs text-brown">Stock: {product.quantity}</p>
               </div>
               <div className="flex gap-2">
                 <button
-                  className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg shadow transition-colors duration-200"
+                  className="bg-honey hover:bg-bee text-brown px-4 py-2 rounded-xl font-bold shadow-honey border-2 border-honey-dark transition-colors duration-200"
                   onClick={() => setEditingProduct(product)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-400 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow transition-colors duration-200"
+                  className="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-xl font-bold shadow transition-colors duration-200 border-2 border-red-700"
                   onClick={() => handleDelete(product.id)}
                 >
                   Delete

@@ -65,21 +65,24 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-white rounded shadow">
-      <h2 className="text-lg font-bold">Add Product</h2>
+    <form onSubmit={handleSubmit} className="space-y-6 p-8 bg-honey-light rounded-2xl shadow-honey border-2 border-honey-dark max-w-xl mx-auto">
+      <h2 className="text-3xl font-serif font-extrabold text-honey-dark mb-4 text-center flex items-center justify-center gap-2">
+        <span className="text-4xl">🍯</span>
+        Add Product
+      </h2>
       <input
         type="text"
         placeholder="Name"
         value={name}
         onChange={e => setName(e.target.value)}
-        className="w-full border p-2 rounded"
+        className="w-full border-2 border-honey-dark p-3 rounded-xl font-serif text-lg focus:ring-2 focus:ring-honey"
         required
       />
       <textarea
         placeholder="Description"
         value={description}
         onChange={e => setDescription(e.target.value)}
-        className="w-full border p-2 rounded"
+        className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-base focus:ring-2 focus:ring-honey"
         required
       />
       <input
@@ -87,7 +90,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
         placeholder="Price"
         value={price}
         onChange={e => setPrice(e.target.value)}
-        className="w-full border p-2 rounded"
+        className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey"
         required
         min="0"
         step="0.01"
@@ -97,7 +100,7 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
         placeholder="Quantity"
         value={quantity}
         onChange={e => setQuantity(e.target.value)}
-        className="w-full border p-2 rounded"
+        className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey"
         required
         min="0"
       />
@@ -105,16 +108,16 @@ export default function ProductForm({ onProductAdded }: { onProductAdded?: () =>
         type="file"
         accept="image/*"
         onChange={e => setImage(e.target.files?.[0] || null)}
-        className="w-full border p-2 rounded"
+        className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey bg-white"
       />
       <button
         type="submit"
-        className="w-full bg-yellow-500 text-white py-2 rounded font-bold"
+        className="w-full bg-honey hover:bg-bee text-brown py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
         disabled={loading}
       >
         {loading ? 'Adding...' : 'Add Product'}
       </button>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+  {error && <p className="text-red-500 text-base font-bold text-center mt-2">{error}</p>}
     </form>
   );
 }
