@@ -25,7 +25,7 @@ export default function ProductList() {
 
   return (
     <div className="mt-10 max-w-6xl mx-auto px-4">
-      <h2 className="text-4xl font-serif font-extrabold mb-8 text-center text-black tracking-tight flex items-center justify-center gap-2">
+  <h2 className="text-4xl font-serif font-extrabold mb-8 text-center text-black tracking-tight flex items-center justify-center gap-2">
        Our Products
       </h2>
       {loading ? (
@@ -37,8 +37,10 @@ export default function ProductList() {
       ) : (
   <div className="grid grid-cols-1 center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {products.map(product => (
-            <Link key={product.id} href={`/product/${product.id}`} className="group">
-              <div className="hover:shadow-xl rounded-2xl transition-shadow duration-300 overflow-hidden flex flex-col h-full cursor-pointer">
+            <div key={product.id}>
+              <div className="hover:shadow-xl rounded-2xl pb-2 transition-shadow duration-300 overflow-hidden flex flex-col h-full cursor-pointer">
+            <Link  href={`/product/${product.id}`} className="group">
+               
                 {product.image_url ? (
                   <div className="w-full h-48 mb-3 relative">
                     <Image
@@ -54,14 +56,18 @@ export default function ProductList() {
                   <div className="w-full h-48 bg-honey flex items-center justify-center text-bee text-6xl rounded-t-2xl mb-3 border-b-4 border-honey-dark">🍯</div>
                 )}
                 <div className="px-6 pb-6 flex-1 flex flex-col items-center  justify-between">
-                  <h3 className="font-serif font-bold text-2xl mb-2 transition-colors duration-300">{product.name}</h3>
+                  <h3 className="text-black font-serif font-bold text-xl mb-2 transition-colors duration-300">{product.name}</h3>
                   <p className="text-black text-base mb-3 line-clamp-2 font-sans">{product.description}</p>
                   <span className="text-red-600 text-2xl font-extrabold mb-2">${product.price}</span>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold border-2 ${product.quantity > 0 ? 'bg-green-100 text-green-700 border-green-300' : 'bg-red-100 text-red-700 border-red-300'}`}>
                         { `Volume ${product.quantity} ml`}
                   </span>
-                  <button
-                    className="mt-4 w-full bg-[#ff5c2bdd] text-brown py-2 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-base transition-colors duration-200"
+                
+  
+                </div>
+                </Link>
+                    <button
+                    className="mt-4 cursor-pointer  bg-[#d9420b] m-auto w-[90%] text-white py-2 rounded-xl font-bold shadow-honey  text-base transition-colors duration-200"
                     disabled={product.quantity <= 0}
                     onClick={() => {
                       // Add to cart in localStorage
@@ -82,9 +88,8 @@ export default function ProductList() {
                   >
                     {product.quantity > 0 ? 'Buy' : 'Out of Stock'}
                   </button>
-                </div>
               </div>
-            </Link>
+           </div>
           ))}
         </div>
       )}

@@ -65,41 +65,50 @@ export default function OrderList({ userId }: { userId: string }) {
  
   return (
     <div className="max-w-2xl mx-auto mt-10">
-      <h2 className="text-xl font-bold mb-4">Your Orders</h2>
+      <h2 className="text-2xl font-serif font-extrabold mb-8 text-black text-center flex items-center justify-center gap-2">
+        <span className="text-3xl">📦</span> Your Orders
+      </h2>
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex items-center justify-center py-16">
+          <span className="text-4xl animate-bounce">📦</span>
+          <span className="ml-4 text-lg text-black font-semibold">Loading...</span>
+        </div>
       ) : orders.length === 0 ? (
-        <p>No orders found.</p>
+        <div className="flex flex-col items-center justify-center py-16">
+          <span className="text-6xl mb-4">📦</span>
+          <p className="text-xl text-black font-semibold">No orders found.</p>
+          <p className="text-base text-gray-500 mt-2">Your honey orders will appear here.</p>
+        </div>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-6">
           {orders.map(order => (
-            <li key={order.id} className="border p-4 rounded">
-              <div className="flex justify-between items-center">
-                <span className="font-bold">Order #{order.id}</span>
-                <span className="text-xs">{order.status}</span>
-                <span className="text-xs">{new Date(order.created_at).toLocaleString()}</span>
+            <li key={order.id} className="group bg-white border-2 border-[#FFD966] p-6 rounded-2xl shadow-lg transition-transform duration-200 hover:scale-[1.02]">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="font-serif font-bold text-lg text-black">Order #{order.id}</span>
+                <span className="text-xs px-2 py-1 rounded bg-[#FFFDF6] border border-[#FFD966] text-black font-semibold">{order.status}</span>
+                <span className="text-xs text-gray-500">{new Date(order.created_at).toLocaleString()}</span>
               </div>
               {order.buyer && (
-                <div className="mt-1 text-sm text-gray-700">
-                  Buyer: <span className="font-bold">{order.buyer.name || 'Unknown'}</span>
+                <div className="mt-2 text-sm text-gray-700">
+                  Buyer: <span className="font-bold text-black">{order.buyer.name || 'Unknown'}</span>
                   {order.buyer.email && (
                     <span> (<a href={`mailto:${order.buyer.email}`} className="underline text-blue-600">{order.buyer.email}</a>)</span>
                   )}
                 </div>
               )}
-              <ul className="mt-2">
+              <ul className="mt-4">
                 {order.order_items.map((item) => (
-                  <li key={item.id} className="text-sm">
-                    {item.products?.name || 'Product'} x {item.quantity} (${item.price})
+                  <li key={item.id} className="text-base text-black">
+                    {item.products?.name || 'Product'} <span className="font-bold">× {item.quantity}</span> <span className="text-gray-500">(${item.price})</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-2 text-right font-bold">Total: ${order.total_price}</div>
+              <div className="mt-4 text-right font-extrabold text-lg text-black">Total: <span className="text-honey-dark">${order.total_price}</span></div>
             </li>
           ))}
         </ul>
       )}
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && <p className="text-red-500 text-sm mt-6 text-center">{error}</p>}
     </div>
   );
 }

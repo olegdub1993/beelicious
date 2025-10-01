@@ -55,7 +55,7 @@ export default function SellerProductList() {
 
   return (
   <div className="mt-8 p-8 bg-honey-light rounded-2xl shadow-honey border-2 border-honey-dark max-w-2xl mx-auto">
-  <h2 className="text-3xl font-serif font-extrabold mb-6 text-honey-dark text-center flex items-center justify-center gap-2">
+  <h2 className="text-3xl font-serif font-extrabold mb-6 text-black text-center flex items-center justify-center gap-2">
     <span className="text-4xl">🍯</span>
     Your Products
   </h2>
@@ -68,14 +68,14 @@ export default function SellerProductList() {
           {products.map(product => (
             <li key={product.id} className="bg-honey-light border-2 border-honey rounded-2xl shadow-honey flex justify-between items-center p-6">
               <div>
-                <p className="font-serif font-bold text-2xl text-honey-dark mb-1">{product.name}</p>
-                <p className="text-brown text-base mb-2 font-sans">{product.description}</p>
+                <p className="font-serif font-bold text-2xl text-black mb-1">{product.name}</p>
+                <p className="text-black text-base mb-2 font-sans">{product.description}</p>
                 <p className="text-honey-dark font-bold text-lg">${product.price}</p>
-                <p className="text-xs text-brown">Stock: {product.quantity}</p>
+                <p className="text-xs text-black">Stock: {product.quantity}</p>
               </div>
               <div className="flex gap-2">
                 <button
-                  className="bg-honey hover:bg-bee text-brown px-4 py-2 rounded-xl font-bold shadow-honey border-2 border-honey-dark transition-colors duration-200"
+                  className="bg-honey hover:bg-bee text-black px-4 py-2 rounded-xl font-bold shadow-honey border-2 border-honey-dark transition-colors duration-200"
                   onClick={() => setEditingProduct(product)}
                 >
                   Edit

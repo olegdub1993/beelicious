@@ -7,6 +7,25 @@ import Image from 'next/image';
 export default function Navbar() {
   const [user, setUser] = useState<any>(null);
   const [isSeller, setIsSeller] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Sync cart count from localStorage
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartCount(cart.reduce((sum: number, item: any) => sum + item.quantity, 0));
+    };
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+    window.addEventListener('cart-updated', updateCartCount);
+    // Polling fallback for navigation and missed events
+    const interval = setInterval(updateCartCount, 1000);
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('cart-updated', updateCartCount);
+      clearInterval(interval);
+    };
+  }, []);
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,13 +52,20 @@ export default function Navbar() {
   };
 
   return (
-    <header className="w-full bg-white py-4 px-8 flex items-center justify-between ">
+    <header className="fixed top-0 left-0 w-full bg-white py-4 px-8 flex items-center justify-between z-50 shadow-lg transition-all duration-300">
       <Link href="/" className="flex items-center gap-2 text-3xl font-bold text-black tracking-tight">
         <Image src="/bee.jpg" alt="Bee Icon" width={40} height={40} unoptimized />
         <span>BeeLicious</span>
       </Link>
       <nav className="flex items-center gap-6 font-sans">
-        <Link href="/cart" className="text-black font-semibold hover:text-honey-dark transition-colors">Cart</Link>
+        <Link href="/cart" className="relative text-black font-semibold hover:text-honey-dark transition-colors flex items-center">
+          <Image src="/shopping-cart.png" alt="Cart" width={32} height={32} />
+          {cartCount > 0 && (
+            <span className="ml-1 inline-block bg-honey text-black font-bold rounded-full px-2 py-0.5 text-xs shadow border-2 border-[#FFD966] animate-bounce">
+              {cartCount}
+            </span>
+          )}
+        </Link>
         {user && isSeller && (
           <>
             <Link href="/orders" className="text-black font-semibold hover:text-honey-dark transition-colors">Orders</Link>

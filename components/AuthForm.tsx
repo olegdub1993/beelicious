@@ -60,15 +60,15 @@ export default function AuthForm() {
   };
 
   return (
-  <div className="max-w-md mx-auto mt-10 p-10 bg-honey-light rounded-2xl shadow-honey border-2 border-honey-dark">
-    <h2 className="text-3xl font-serif font-extrabold mb-6 text-honey-dark text-center flex items-center justify-center gap-2">
+  <div className="max-w-md mx-auto mt-10 p-10 bg-white rounded-2xl shadow-lg ">
+    <h2 className="text-3xl font-serif font-extrabold mb-6 text-black text-center flex items-center justify-center gap-2">
       <span className="text-4xl">🐝</span>
       {showForgot ? 'Forgot Password' : isLogin ? 'Login' : 'Register'}
     </h2>
     {showVerifyMsg ? (
-      <div className="bg-yellow-100 border-2 border-honey-dark rounded-xl p-6 text-center mb-6">
-        <h3 className="text-2xl font-bold text-honey-dark mb-2">Check your email!</h3>
-        <p className="text-lg text-honey-dark">We&apos;ve sent a verification link to <span className="font-bold">{email}</span>. Please verify your email address to activate your account.</p>
+      <div className="bg-[#FFFDF6] border-2 border-[#FFD966] rounded-xl p-6 text-center mb-6">
+        <h3 className="text-2xl font-bold text-black mb-2">Check your email!</h3>
+        <p className="text-lg text-black">We&apos;ve sent a verification link to <span className="font-bold">{email}</span>. Please verify your email address to activate your account.</p>
       </div>
     ) : showForgot ? (
       <>
@@ -97,7 +97,7 @@ export default function AuthForm() {
           />
           <button
             type="submit"
-            className="w-full bg-honey hover:bg-bee text-brown py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
+            className="w-full bg-honey hover:bg-bee text-black py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
             disabled={loading}
           >
             {loading ? 'Processing...' : 'Send Reset Link'}
@@ -106,7 +106,7 @@ export default function AuthForm() {
           {error && <p className="text-red-500 text-base font-bold text-center mt-2">{error}</p>}
         </form>
         <button
-          className="mt-6 text-honey-dark underline text-center block font-bold text-lg hover:text-bee transition-colors"
+          className="mt-6 text-black underline text-center block font-bold text-lg hover:text-honey-dark transition-colors"
           onClick={() => { setShowForgot(false); setError(''); setForgotMsg(''); }}
         >
           Back to Login
@@ -141,7 +141,7 @@ export default function AuthForm() {
             className="w-full border-2 border-honey-dark p-3 rounded-xl font-sans text-lg focus:ring-2 focus:ring-honey"
             required
           />
-          {!isLogin && (
+          {/* {!isLogin && (
             <select
               value={role}
               onChange={e => setRole(e.target.value)}
@@ -150,10 +150,10 @@ export default function AuthForm() {
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
             </select>
-          )}
+          )} */}
           <button
             type="submit"
-            className="w-full bg-honey hover:bg-bee text-brown py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
+            className="w-full bg-honey hover:bg-bee text-black py-3 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
             disabled={loading}
           >
             {loading ? 'Processing...' : isLogin ? 'Login' : 'Register'}
@@ -162,14 +162,14 @@ export default function AuthForm() {
         </form>
         {isLogin && (
           <button
-            className="mt-4 text-honey-dark underline text-center block font-bold text-lg hover:text-bee transition-colors"
+            className="mt-4 text-black underline text-center block font-bold text-lg hover:text-honey-dark transition-colors"
             onClick={() => { setShowForgot(true); setError(''); setForgotMsg(''); }}
           >
             Forgot password?
           </button>
         )}
         <button
-          className="mt-6 text-honey-dark underline text-center block font-bold text-lg hover:text-bee transition-colors"
+          className="mt-6 text-black underline text-center block font-bold text-lg hover:text-honey-dark transition-colors"
           onClick={() => setIsLogin(!isLogin)}
         >
           {isLogin ? 'Need an account? Register' : 'Already have an account? Login'}
