@@ -28,11 +28,11 @@ export default function Home() {
         {/* Mission & News Section */}
         <section className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 px-6 mb-12">
           <div className="flex-1 bg-white rounded-2xl shadow-lg  p-8 flex flex-col gap-4">
-            <div className="w-full h-40 rounded-xl overflow-hidden mb-4">
+            <div className="w-full h-150 rounded-xl overflow-hidden mb-4">
               {/* Replace with actual beekeeper image */}
-              <Image src="/placeholder-beekeeper.jpg" alt="Beekeeper" width={320} height={160} className="object-cover w-full h-full" />
+              <Image src="/mission.webp" unoptimized alt="Beekeeper" width={320} height={460} className="object-cover w-full h-full" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-[#B8860B] mb-2">OUR MISSION</h2>
+            <h2 className="text-2xl font-serif font-bold text-black mb-2">OUR MISSION</h2>
             <p className="text-black text-base">We believe in sustainable beekeeping and delivering the purest honey to your table. Our passion is to protect bees and share their gifts with the world.</p>
             <span className="font-serif text-black italic">— BeeLicious Team</span>
           </div>
@@ -44,29 +44,24 @@ export default function Home() {
         </section>
         {/* Testimonial Section */}
         <section className="max-w-4xl mx-auto mt-8 px-6">
-          <div className="bg-white rounded-2xl shadow-lg border-2 border-[#FFD966] p-8 flex flex-col items-center">
+          <div className="bg-white rounded-2xl shadow-lg  p-8 flex flex-col items-center">
             <p className="text-xl text-[#8B5C2A] italic mb-4">“The first step to becoming a successful beekeeper is to learn to watch and enjoy what the bees are doing in their hives.”</p>
-            <span className="font-serif text-[#B8860B] font-bold">— Mellifera Founder</span>
-            <span className="inline-block bg-[#FFD966] text-[#B8860B] px-4 py-1 rounded-full font-bold mt-2">Gold Badge</span>
+            <span className="font-serif text-[#B8860B] font-bold">— BeeLicious Founder</span>
+            <span className="inline-block bg-[#FFD966] text-black px-4 py-1 rounded-full font-bold mt-2">Gold Badge</span>
           </div>
         </section>
         {/* Gallery Section */}
         <section className="max-w-6xl mx-auto mt-8 px-6">
-          <h2 className="text-2xl font-serif font-bold text-[#B8860B] mb-6 text-center">OUR GALLERY</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <h2 className="text-2xl font-serif font-bold text-black mb-6 text-center">OUR GALLERY</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 center">
             {/* Gallery image placeholders */}
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🐝</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🍯</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🌻</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🌼</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🐝</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🍯</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🌻</div>
-            <div className="bg-[#FFFDF6] rounded-2xl shadow-lg h-32 flex items-center justify-center text-4xl">🌼</div>
+            <Image src="/gallery1.jpg" alt="Gallery Image 1" width={150} height={150} className="rounded-2xl shadow-lg h-32 object-cover"/>
+            <Image src="/gallery2.jpg" alt="Gallery Image 2" width={150} height={150} className="rounded-2xl shadow-lg h-32 object-cover"/>
+            <Image src="/gallery3.jpg" alt="Gallery Image 3" width={150} height={150} className="rounded-2xl shadow-lg h-32 object-cover"/>
           </div>
         </section>
         {/* Newsletter Section */}
-        <section className="max-w-3xl mx-auto mt-8 px-6">
+        {/* <section className="max-w-3xl mx-auto mt-8 px-6">
           <div className="bg-white rounded-2xl shadow-lg border-2 border-[#FFD966] p-8 flex flex-col items-center">
             <h2 className="text-2xl font-serif font-bold text-[#B8860B] mb-2">NEWSLETTER SIGN UP</h2>
             <p className="text-[#8B5C2A] text-base mb-4">Get the latest honey news, offers, and beekeeping tips.</p>
@@ -75,7 +70,7 @@ export default function Home() {
               <button type="submit" className="bg-[#E88C2B] hover:bg-[#F6C700] text-white px-6 py-3 rounded-xl font-bold shadow-lg border-2 border-[#B8860B] text-lg transition-colors duration-200">SUBSCRIBE</button>
             </form>
           </div>
-        </section>
+        </section> */}
       </main>
     </>
   );

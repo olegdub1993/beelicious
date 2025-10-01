@@ -35,10 +35,10 @@ export default function ProductList() {
       ) : products.length === 0 ? (
         <div className="text-center text-gray-500">No products available.</div>
       ) : (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+  <div className="grid grid-cols-1 center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {products.map(product => (
             <Link key={product.id} href={`/product/${product.id}`} className="group">
-              <div className="bg-honey-light border-2 border-honey rounded-2xl shadow-honey hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col h-full cursor-pointer">
+              <div className="hover:shadow-xl rounded-2xl transition-shadow duration-300 overflow-hidden flex flex-col h-full cursor-pointer">
                 {product.image_url ? (
                   <div className="w-full h-48 mb-3 relative">
                     <Image
@@ -53,15 +53,35 @@ export default function ProductList() {
                 ) : (
                   <div className="w-full h-48 bg-honey flex items-center justify-center text-bee text-6xl rounded-t-2xl mb-3 border-b-4 border-honey-dark">🍯</div>
                 )}
-                <div className="px-6 pb-6 flex-1 flex flex-col justify-between">
-                  <h3 className="font-serif font-bold text-2xl mb-2 text-honey-dark group-hover:text-bee transition-colors duration-300">{product.name}</h3>
-                  <p className="text-brown text-base mb-3 line-clamp-2 font-sans">{product.description}</p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="bg-honey px-4 py-2 rounded-full text-brown font-bold shadow-honey text-lg border-2 border-honey-dark">${product.price}</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold border-2 ${product.quantity > 0 ? 'bg-green-100 text-green-700 border-green-300' : 'bg-red-100 text-red-700 border-red-300'}`}>
-                        { `Weight ${product.quantity} ml`}
-                    </span>
-                  </div>
+                <div className="px-6 pb-6 flex-1 flex flex-col items-center  justify-between">
+                  <h3 className="font-serif font-bold text-2xl mb-2 transition-colors duration-300">{product.name}</h3>
+                  <p className="text-black text-base mb-3 line-clamp-2 font-sans">{product.description}</p>
+                  <span className="text-red-600 text-2xl font-extrabold mb-2">${product.price}</span>
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold border-2 ${product.quantity > 0 ? 'bg-green-100 text-green-700 border-green-300' : 'bg-red-100 text-red-700 border-red-300'}`}>
+                        { `Volume ${product.quantity} ml`}
+                  </span>
+                  <button
+                    className="mt-4 w-full bg-[#ff5c2bdd] text-brown py-2 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-base transition-colors duration-200"
+                    disabled={product.quantity <= 0}
+                    onClick={() => {
+                      // Add to cart in localStorage
+                      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                      const existing = cart.find((item: any) => item.id === product.id);
+                      if (existing) {
+                        existing.quantity += 1;
+                      } else {
+                        cart.push({
+                          id: product.id,
+                          name: product.name,
+                          price: product.price,
+                          quantity: 1,
+                        });
+                      }
+                      localStorage.setItem('cart', JSON.stringify(cart));
+                    }}
+                  >
+                    {product.quantity > 0 ? 'Buy' : 'Out of Stock'}
+                  </button>
                 </div>
               </div>
             </Link>
