@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: 'Invalid cart' });
   }
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const line_items = cart.map((item: any) => ({
       price_data: {
         currency: 'usd',
@@ -29,6 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       cancel_url: `${req.headers.origin}/checkout?canceled=true`,
     });
     res.status(200).json({ url: session.url });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
