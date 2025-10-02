@@ -63,6 +63,9 @@ export default function Navbar() {
         <span>BeeLicious</span>
       </Link>
       <nav className="flex items-center gap-6 font-sans">
+        <Link href="/" className="text-black font-semibold hover:text-honey-dark transition-colors">Home</Link>
+        <Link href="/about" className="text-black font-semibold hover:text-honey-dark transition-colors">About</Link>
+        <Link href="history" className="text-black font-semibold hover:text-honey-dark transition-colors">Interesting Facts</Link>
         <Link href="/cart" className="relative text-black font-semibold hover:text-honey-dark transition-colors flex items-center">
           <Image src="/shopping-cart.png" alt="Cart" width={32} height={32} />
           {cartCount > 0 && (
