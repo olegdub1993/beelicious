@@ -15,7 +15,8 @@ type Order = {
   created_at: string;
   total_price: number;
   order_items: OrderItem[];
-  buyer?: { name?: string; email?: string, phone?: string};
+  phone?: string;
+  buyer?: { name?: string; email?: string, };
 };
 
 export default function OrderList({ userId }: { userId: string }) {
@@ -29,7 +30,7 @@ export default function OrderList({ userId }: { userId: string }) {
       // 1. Get all order_items for products where seller_id = userId
       const { data: orderItemsData, error: orderItemsError } = await supabase
         .from('order_items')
-        .select('*, products(name, seller_id), orders(id, status, created_at, total_price, users(name, email))')
+        .select('*, products(name, seller_id), orders(id, status, created_at, total_price, phone_number, users(name, email))')
         .eq('products.seller_id', userId);
       if (orderItemsError) {
         setError(orderItemsError.message);
@@ -47,7 +48,8 @@ export default function OrderList({ userId }: { userId: string }) {
             created_at: item.orders.created_at,
             total_price: item.orders.total_price,
             order_items: [],
-            buyer: item.orders.users ? { name: item.orders.users.name, email: item.orders.users.email, phone: item.orders.users.phone_number } : {},
+            phone: item.orders.phone_number,
+            buyer: item.orders.users ? { name: item.orders.users.name, email: item.orders.users.email } : { },
           };
         }
         ordersMap[orderId].order_items.push({
@@ -128,8 +130,8 @@ export default function OrderList({ userId }: { userId: string }) {
                   {order.buyer.email && (
                     <span> (<a href={`mailto:${order.buyer.email}`} className="underline text-blue-600">{order.buyer.email}</a>)</span>
                   )}
-                  {order.buyer.phone && (
-                    <span> (<a href={`tel:${order.buyer.phone}`} className="underline text-blue-600">{order.buyer.phone}</a>)</span>
+                  {order.phone && (
+                    <span> (<a href={`tel:${order.phone}`} className="underline text-blue-600">{order.phone}</a>)</span>
                   )}
                 </div>
               )}
