@@ -122,7 +122,7 @@ export default function CartList() {
               Total: <span className="text-honey-dark">${total.toFixed(2)}</span>
             </div>
             <button
-              className="mt-4 sm:mt-0 w-full sm:w-auto bg-honey hover:bg-bee text-black py-3 px-8 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
+              className="mt-4 cursor-pointer sm:mt-0 w-full sm:w-auto bg-honey hover:bg-bee text-black py-3 px-8 rounded-xl font-bold shadow-honey border-2 border-honey-dark text-xl transition-colors duration-200"
               disabled={buying}
               onClick={async () => {
                 setBuying(true);
@@ -187,7 +187,7 @@ export default function CartList() {
             </button>
           </div>
           {buyMsg && (
-            <div className="mt-6 text-center text-xl font-bold text-black">
+            <div className={`mt-6 text-center text-xl font-bold text-black ${buyMsg.includes('Thank you for your purchase') ? 'text-green-600' : 'text-red-600'}`}>
               {buyMsg}
               {buyMsg.includes('Thank you for your purchase') && (
                 <div className="mt-2 text-base font-normal text-gray-700">We will contact you at your email address with order details and next steps.</div>
