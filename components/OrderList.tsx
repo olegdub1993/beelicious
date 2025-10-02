@@ -62,6 +62,30 @@ export default function OrderList({ userId }: { userId: string }) {
     };
     if (userId) fetchSellerOrders();
   }, [userId]);
+
+  const handleStatusChange = async (orderId: string, newStatus: string) => {
+    // Optimistically update the UI
+    const originalOrders = orders;
+    setOrders(prevOrders =>
+      prevOrders.map(order =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+
+    const { error } = await supabase
+      .from('orders')
+      .update({ status: newStatus })
+      .eq('id', orderId);
+
+    if (error) {
+      setError(`Failed to update status for order #${orderId}. Please try again.`);
+      // Revert the UI change if the update fails
+      setOrders(originalOrders);
+    } else {
+      // Clear any previous errors on success
+      setError('');
+    }
+  };
  
   return (
     <div className="max-w-2xl mx-auto mt-10">
@@ -85,7 +109,17 @@ export default function OrderList({ userId }: { userId: string }) {
             <li key={order.id} className="group bg-white border-2 border-[#FFD966] p-6 rounded-2xl shadow-lg transition-transform duration-200 hover:scale-[1.02]">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                 <span className="font-serif font-bold text-lg text-black">Order #{order.id}</span>
-                <span className="text-xs px-2 py-1 rounded bg-[#FFFDF6] border border-[#FFD966] text-black font-semibold">{order.status}</span>
+            <select
+                    value={order.status}
+                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                    className="border p-1 rounded text-sm bg-white text-black font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    >
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="canceled">Canceled</option>
+                    </select>
                 <span className="text-xs text-gray-500">{new Date(order.created_at).toLocaleString()}</span>
               </div>
               {order.buyer && (
