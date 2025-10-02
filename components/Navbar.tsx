@@ -7,6 +7,7 @@ import type { User } from '@supabase/supabase-js';
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [userName, setUserName] = useState<string>('');
   const [isSeller, setIsSeller] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
@@ -36,12 +37,14 @@ export default function Navbar() {
       if (data?.user?.id) {
         const { data: userRow } = await supabase
           .from('users')
-          .select('role')
+          .select('role, name')
           .eq('id', data.user.id)
           .single();
         setIsSeller(userRow?.role === 'seller');
+        setUserName(userRow?.name || '');
       } else {
         setIsSeller(false);
+        setUserName('');
       }
     };
     getUser();
@@ -81,12 +84,19 @@ export default function Navbar() {
             </button>
           </Link>
         ) : (
-          <button
-            onClick={handleLogout}
-            className="bg-transparent hover:shadow-md text-black px-5 py-2 rounded-xl font-bold shadow transition-colors duration-200 border-2 border-red-700"
-          >
-            Logout
-          </button>
+          <>
+            {userName && (
+              <span className="text-black font-semibold text-lg">
+                Welcome, {userName}!
+              </span>
+            )}
+            <button
+              onClick={handleLogout}
+              className="bg-transparent hover:shadow-md text-black px-5 py-2 rounded-xl font-bold shadow transition-colors duration-200 border-2 border-red-700"
+            >
+              Logout
+            </button>
+          </>
         )}
       </nav>
     </header>
