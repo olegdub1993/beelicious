@@ -15,7 +15,7 @@ type Order = {
   created_at: string;
   total_price: number;
   order_items: OrderItem[];
-  buyer?: { name?: string; email?: string };
+  buyer?: { name?: string; email?: string, phone?: string};
 };
 
 export default function OrderList({ userId }: { userId: string }) {
