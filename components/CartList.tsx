@@ -7,6 +7,7 @@ export default function CartList() {
   const [buying, setBuying] = useState(false);
   const [buyMsg, setBuyMsg] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
+  const [phone, setPhone] = useState('');
 
   // Get current user id for order association
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function CartList() {
                     >
                       <span className="text-lg">−</span>
                     </button>
-                    <span className="text-base font-bold px-3 py-1 rounded bg-[#FFFDF6] border border-[#FFD966]">{item.quantity}</span>
+                    <span className="text-base text-dark-gray font-bold px-3 py-1 rounded bg-[#FFFDF6] border border-[#FFD966]">{item.quantity}</span>
                     <button
                       className="bg-[#FFD966] hover:bg-yellow-300 text-black px-3 py-1 rounded-full font-bold shadow transition-all duration-200"
                       onClick={() => updateQuantity(item.id, 1)}
@@ -105,6 +106,17 @@ export default function CartList() {
             ))}
           </ul>
           {/* Sticky total and checkout bar for desktop */}
+                {!userId && (
+              <div className="w-ful mt-12 mb-4 sm:w-auto sm:mr-4">
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+            )}
           <div className="sticky bottom-0 left-0 w-full bg-white border-t-2 border-[#FFD966] py-6 px-4 mt-10 flex flex-col sm:flex-row items-center justify-between rounded-b-2xl shadow-lg z-10">
             <div className="font-extrabold text-2xl text-black">
               Total: <span className="text-honey-dark">${total.toFixed(2)}</span>
@@ -116,17 +128,29 @@ export default function CartList() {
                 setBuying(true);
                 setBuyMsg('');
                 try {
-                  if (!userId) {
-                    setBuyMsg('You must be logged in to place an order.');
+                  if (!userId && (!phone || phone.length < 10)) {
+                    setBuyMsg('Please enter a valid phone number to proceed.');
                     setBuying(false);
                     return;
                   }
                   // 1. Insert order
-                  const { data: orderData, error: orderError } = await supabase.from('orders').insert({
-                    user_id: userId,
+                  const orderPayload: {
+                    user_id?: string;
+                    phone_number?: string;
+                    total_price: number;
+                    created_at: string;
+                  } = {
                     total_price: total,
                     created_at: new Date().toISOString(),
-                  }).select('id');
+                  };
+
+                  if (userId) {
+                    orderPayload.user_id = userId;
+                  } else {
+                    orderPayload.phone_number = phone;
+                  }
+
+                  const { data: orderData, error: orderError } = await supabase.from('orders').insert(orderPayload).select('id');
                   if (orderError || !orderData || !orderData[0]?.id) {
                     setBuyMsg('Error placing order. Please try again.');
                     setBuying(false);
@@ -163,7 +187,7 @@ export default function CartList() {
             </button>
           </div>
           {buyMsg && (
-            <div className="mt-6 text-center text-xl font-bold text-green-600">
+            <div className="mt-6 text-center text-xl font-bold text-black">
               {buyMsg}
               {buyMsg.includes('Thank you for your purchase') && (
                 <div className="mt-2 text-base font-normal text-gray-700">We will contact you at your email address with order details and next steps.</div>

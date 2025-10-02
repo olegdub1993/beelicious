@@ -47,7 +47,7 @@ export default function OrderList({ userId }: { userId: string }) {
             created_at: item.orders.created_at,
             total_price: item.orders.total_price,
             order_items: [],
-            buyer: item.orders.users ? { name: item.orders.users.name, email: item.orders.users.email } : {},
+            buyer: item.orders.users ? { name: item.orders.users.name, email: item.orders.users.email, phone: item.orders.users.phone_number } : {},
           };
         }
         ordersMap[orderId].order_items.push({
@@ -93,6 +93,9 @@ export default function OrderList({ userId }: { userId: string }) {
                   Buyer: <span className="font-bold text-black">{order.buyer.name || 'Unknown'}</span>
                   {order.buyer.email && (
                     <span> (<a href={`mailto:${order.buyer.email}`} className="underline text-blue-600">{order.buyer.email}</a>)</span>
+                  )}
+                  {order.buyer.phone && (
+                    <span> (<a href={`tel:${order.buyer.phone}`} className="underline text-blue-600">{order.buyer.phone}</a>)</span>
                   )}
                 </div>
               )}
